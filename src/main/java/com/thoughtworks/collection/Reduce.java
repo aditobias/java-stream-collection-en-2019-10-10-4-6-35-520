@@ -13,27 +13,54 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+                .reduce((n,v) -> n > v ? n : v)
+                .orElse(0);
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+                .reduce((n,v) -> n < v ? n : v)
+                .orElse(0);
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        return arrayList
+                .stream()
+                .reduce(Integer::sum)
+                .map(Integer::doubleValue)
+                .map(number -> number / arrayList.size())
+                .get();
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
+       return arrayList.stream()
+               .sorted()
+               .map(number -> {
+                   if(arrayList.size() % 2 == 0){
+                       return arrayList.get(arrayList.size() + 1 / 2) + arrayList.get((arrayList.size() - 1) / 2);
+                   }else{
+                       return arrayList.get((arrayList.size() + 1) / 2);
+                   }
+               })
+               .mapToDouble(Integer::doubleValue)
+               .reduce((a,b) -> b/2)
+               .getAsDouble();
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+                .filter(number -> number % 2 == 0)
+                .findFirst()
+                .orElse(0);
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+        return arrayList.indexOf(arrayList.stream()
+                .filter(number -> number % 2 == 0)
+                .findFirst()
+                .orElse(0));
+
     }
 
     public boolean isEqual(List<Integer> arrayList) {
@@ -45,10 +72,12 @@ public class Reduce {
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+                .reduce((first, second) -> second)
+                .orElse(null);
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        return null
     }
 }
